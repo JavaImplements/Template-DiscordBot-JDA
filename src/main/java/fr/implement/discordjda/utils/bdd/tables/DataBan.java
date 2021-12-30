@@ -1,6 +1,8 @@
 package fr.implement.discordjda.utils.bdd.tables;
 
-import fr.implement.surfbot.utils.bdd.mysql.MySQL;
+
+import fr.implement.discordjda.utils.ConsoleColor;
+import fr.implement.discordjda.utils.bdd.mysql.MySQL;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +24,7 @@ public class DataBan extends MySQL {
                 q.execute();
                 q.close();
 
-                System.out.println(getProjectName() + " " + username + " à été ban du serveur.");
+                System.out.println(ConsoleColor.RED.getColorString() + getProjectName() + " " + username + " à été ban du serveur." + ConsoleColor.RESET.getColorString());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
