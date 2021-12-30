@@ -21,10 +21,9 @@ public abstract class MySQL {
 
         if (!isConnected()) {
             try {
-
                 c = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?autoReconnect=" + autoReconnect, user, password);
 
-                System.out.println("[Mysql-LOG] " + ConsoleColor.ANSI_GREEN.getColorString() + "La liaison entre le Bot et la base de donner a été effectuée avec succès" + ConsoleColor.ANSI_RESET.getColorString());
+                System.out.println("[Mysql-LOG] " + ConsoleColor.GREEN.getColorString() + "La liaison entre le Bot et la base de donner a été effectuée avec succès" + ConsoleColor.RESET.getColorString());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -46,8 +45,7 @@ public abstract class MySQL {
         return true;
     }
 
-
-
+    
 
 
 
