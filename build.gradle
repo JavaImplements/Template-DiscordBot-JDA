@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
+}
+// Changer le package par le votre
+def mainClass = 'fr.implement.discordjda.Main'
+
+run {
+    mainClassName = mainClass
+}
+
+shadowJar {
+    project.configurations.implementation.canBeResolved(true)
+    configurations = [project.configurations.implementation]
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': mainClass
+        )
+    }
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+    maven {
+        name 'm2-dv8tion'
+        url 'https://m2.dv8tion.net/releases'
+    }
+}
+
+dependencies {
+    // Ces deux dependance  son essentiels aux bon functionnement de la lib JDA
+    implementation 'com.jagrosh:jda-utilities:3.0.5'
+    implementation 'net.dv8tion:JDA:4.3.0_331'
+    // Cette dependance est fait pour utiliser le json par la lib de google -> GSON
+    //implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'ch.qos.logback:logback-classic:1.2.6'
+    // Si vous n'utiliser pas les base de donner vous pouvez laisser cette dependance en commentaire.
+    //implementation 'mysql:mysql-connector-java:5.1.36'
+}
