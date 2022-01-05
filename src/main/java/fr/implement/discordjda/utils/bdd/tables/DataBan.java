@@ -1,6 +1,7 @@
 package fr.implement.discordjda.utils.bdd.tables;
 
 
+import fr.implement.discordjda.Main;
 import fr.implement.discordjda.utils.ConsoleColor;
 import fr.implement.discordjda.utils.bdd.mysql.MySQL;
 
@@ -10,8 +11,9 @@ import java.sql.SQLException;
 
 public class DataBan extends MySQL {
 
-    public DataBan(String usedTab) { super(usedTab); }
-
+    public DataBan(String usedTab) {
+        super(usedTab);
+    }
 
 
     public void banUser(String user_id, String username, String reason) {
@@ -24,7 +26,7 @@ public class DataBan extends MySQL {
                 q.execute();
                 q.close();
 
-                System.out.println(ConsoleColor.RED.getColorString() + getProjectName() + " " + username + " à été ban du serveur." + ConsoleColor.RESET.getColorString());
+                System.out.println(ConsoleColor.RED.getColorString() + Main.getNameBot() + " " + username + " à été ban du serveur." + ConsoleColor.RESET.getColorString());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -33,7 +35,7 @@ public class DataBan extends MySQL {
 
     private boolean isBan(String user_id) {
         try {
-            PreparedStatement q = c.prepareStatement("SELECT user_id from " + getUsedTab()+ " WHERE user_id = ?");
+            PreparedStatement q = c.prepareStatement("SELECT user_id from " + getUsedTab() + " WHERE user_id = ?");
             q.setString(1, user_id);
             ResultSet result = q.executeQuery();
             boolean hasAccount = result.next();
@@ -47,8 +49,4 @@ public class DataBan extends MySQL {
         return false;
     }
 
-    @Override
-    public String getProjectName() {
-        return "[Implements-Ban]";
-    }
 }

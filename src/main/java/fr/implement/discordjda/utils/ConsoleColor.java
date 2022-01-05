@@ -14,7 +14,7 @@ public enum ConsoleColor {
 
     private final String colorString;
 
-    ConsoleColor(String colorString){
+    ConsoleColor(String colorString) {
         this.colorString = colorString;
     }
 

@@ -23,7 +23,6 @@ public abstract class SlashCommand {
     public abstract void execute(SlashCommandEvent e, Member member, User user, TextChannel textChannel);
 
 
-
     public Permission getPermission() {
         return null;
     }

@@ -20,11 +20,18 @@ public class SlashHandler extends ListenerAdapter {
     }
 
     public void registerCommands(JDA jda) {
+        double machineTime = System.currentTimeMillis();
+
+        Utils.log("Register des commands avec '/' .... ");
+
         CommandListUpdateAction command = jda.updateCommands();
         for (SlashCommand slashCommand : commands) {
+            Utils.log("Nouvelle commands enregister : " + slashCommand.command);
             command.addCommands(new CommandData(slashCommand.command, slashCommand.description).addOptions(slashCommand.optionData));
         }
         command.queue();
+
+        Utils.log("Tout les commands on été enregistrer avec sucess (" + (System.currentTimeMillis() - machineTime) + "ms)");
     }
 
     public void registerCommand(SlashCommand slashCommand) {
@@ -38,6 +45,8 @@ public class SlashHandler extends ListenerAdapter {
         TextChannel textChannel = event.getTextChannel();
         for (SlashCommand slashCommand : commands) {
             if (event.getCommandPath().equalsIgnoreCase(slashCommand.command)) {
+
+
                 if (slashCommand.getPermission() != null && !member.getPermissions().contains(slashCommand.getPermission())) {
                     event.replyEmbeds(Utils.getEmbedNoPerm(event.getJDA()).build()).setEphemeral(true).queue();
                 } else slashCommand.execute(event, member, user, textChannel);

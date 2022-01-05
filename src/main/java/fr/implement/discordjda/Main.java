@@ -1,48 +1,37 @@
 package fr.implement.discordjda;
 
-import com.jagrosh.jdautilities.command.CommandClientBuilder;
-import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
-import fr.implement.discordjda.managers.BotManagers;
-import fr.implement.discordjda.utils.bdd.DatabaseUser;
-import fr.implement.discordjda.utils.bdd.mysql.MySQL;
+import fr.implement.discordjda.utils.ConsoleColor;
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.requests.GatewayIntent;
 
 import javax.security.auth.login.LoginException;
-import java.util.EnumSet;
+import java.util.Scanner;
 
-public class Main {
+public class Main extends JDABot {
+
+    /**
+     * @author Implements
+     * @updated 05/01/22
+     * <p>
+     * Cette template est en cours de développement.
+     */
+
 
     public static void main(String[] args) throws LoginException {
+        login("Nzk3NjEwODA1MTc2MDQxNTMz.X_o-8g.eo8CS4g8K-We7zyolkZCiYDyNPI", Activity.playing("Template : Développed by Implements"), ConsoleColor.BLUE.getColorString() + "Implements-Template - " + ConsoleColor.RESET.getColorString());
 
-        // Create Client
-
-        CommandClientBuilder client = new CommandClientBuilder().setActivity(Activity.playing("Bienvenue sur la Template de Implements !"));
-
-        // Create Instance of Bot
-
-        EventWaiter waiter = new EventWaiter();
-
-
-        JDA jda = JDABuilder.createDefault("token")
-                .addEventListeners(waiter, client.build())
-                // Check Discord API for Intents
-                .setEnabledIntents(EnumSet.allOf(GatewayIntent.class))
-                .setAutoReconnect(true)
-                .build();
-
-
-        // Register all commands
-        BotManagers.registerCommands(jda);
-        // Register all Listeners
-        BotManagers.loadListeners(jda);
-
-        // Connexion MYSQL Server
-        MySQL.connect(new DatabaseUser("localhost", 3306, "Implements-Database", "admin", "password"), true);
-
-
+        runTaskBot(getJDA());
     }
 
+
+    // System plus performants / completes en cours de développement.
+
+    public static void runTaskBot(JDA jda) {
+        Scanner s = new Scanner(System.in);
+        String cmd = s.nextLine();
+        if (cmd.equals("stop")) {
+            jda.shutdown();
+            System.exit(0);
+        }
+    }
 }

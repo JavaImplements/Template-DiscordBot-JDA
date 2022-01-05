@@ -1,7 +1,7 @@
 package fr.implement.discordjda.utils.bdd.mysql;
 
 
-import fr.implement.discordjda.utils.ConsoleColor;
+import fr.implement.discordjda.utils.Utils;
 import fr.implement.discordjda.utils.bdd.DatabaseUser;
 
 import java.sql.*;
@@ -10,8 +10,8 @@ import java.util.List;
 
 public abstract class MySQL {
 
-    private final String usedTab;
     public static Connection c;
+    private final String usedTab;
 
     public MySQL(String usedTab) {
         this.usedTab = usedTab;
@@ -21,10 +21,12 @@ public abstract class MySQL {
 
         if (!isConnected()) {
             try {
+
                 c = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?autoReconnect=" + autoReconnect, user, password);
 
-                System.out.println("[Mysql-LOG] " + ConsoleColor.GREEN.getColorString() + "La liaison entre le Bot et la base de donner a été effectuée avec succès" + ConsoleColor.RESET.getColorString());
+                Utils.logSucces("[Mysql-LOG] La liaison entre le Bot et la base de donner a été effectuée avec succès");
             } catch (SQLException e) {
+                Utils.logError("[Mysql-LOG] La liaison entre le Bot et la base de donner à échouer. (Faire les modification et restart le bot)");
                 e.printStackTrace();
             }
         }
@@ -44,9 +46,6 @@ public abstract class MySQL {
 
         return true;
     }
-
-    
-
 
 
     public Object get(String objectNameEntry, String objectNameExit, String column) {
@@ -75,7 +74,8 @@ public abstract class MySQL {
             q.setString(2, objectNameExit);
             q.executeUpdate();
             q.close();
-            System.out.println(getProjectName() + " Changement dans la colonne '" + column + "' => '" + object + "'");
+
+            Utils.log("Changement dans la colone '" + column + "' => '" + object + "'");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -114,7 +114,5 @@ public abstract class MySQL {
     public String getUsedTab() {
         return usedTab;
     }
-
-    public abstract String getProjectName();
 
 }
