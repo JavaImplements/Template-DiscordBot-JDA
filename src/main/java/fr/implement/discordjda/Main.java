@@ -18,7 +18,7 @@ public class Main extends JDABot {
 
 
     public static void main(String[] args) throws LoginException {
-        login("Nzk3NjEwODA1MTc2MDQxNTMz.X_o-8g.eo8CS4g8K-We7zyolkZCiYDyNPI", Activity.playing("Template : Développed by Implements"), ConsoleColor.BLUE.getColorString() + "Implements-Template - " + ConsoleColor.RESET.getColorString());
+        login("token", Activity.playing("Template : Développed by Implements"), ConsoleColor.BLUE.getColorString() + "Implements-Template - " + ConsoleColor.RESET.getColorString());
 
         runTaskBot(getJDA());
     }
